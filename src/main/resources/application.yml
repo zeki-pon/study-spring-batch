@@ -1,0 +1,8 @@
+# 実行時にジョブが起動しないようにする(書き方はどちらでもよい)
+# 以下の設定を入れるとジョブを指定して実行できなくなる
+#spring:
+#  batch.job.enabled: false
+#spring:
+#  batch:
+#    job:
+#      enabled: false
