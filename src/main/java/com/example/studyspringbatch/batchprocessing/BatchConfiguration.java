@@ -74,6 +74,7 @@ public class BatchConfiguration {
             .end()
             .build();
     }
+
     @Bean
     public Step step1(JdbcBatchItemWriter<Person> writer) {
         return stepBuilderFactory.get("step1")
@@ -86,5 +87,28 @@ public class BatchConfiguration {
         // chunk()に<Person, Person>というprefixがついている理由
         // chunk()がジェネリックメソッドであるため。(メソッドの引数をメソッド呼び出しの際に決められるメソッドのこと)
         // ここでは、inputの引数としてPerson type, outputの引数としてPerson typeを定義している
+    }
+
+    /**
+     * バッチ2(コマンドラインから指定して動作できるかのテスト用)
+     */
+    @Bean
+    public Job testJob(JobCompletionNotificationListener listener, Step step1) {
+        return jobBuilderFactory.get("testJob")
+                .incrementer(new RunIdIncrementer()) // ジョブが実行状態を維持するのにDBを使用するためincrementerが必要になる
+                .listener(listener)
+                .flow(step1)
+                .end()
+                .build();
+    }
+
+    @Bean
+    public Step testJobStep1(JdbcBatchItemWriter<Person> writer) {
+        return stepBuilderFactory.get("step1")
+                .<Person, Person> chunk(10) // 一度に書き込む量を定義
+                .reader((reader()))
+                .processor(processor())
+                .writer(writer)
+                .build();
     }
 }
