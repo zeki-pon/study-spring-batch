@@ -1,7 +1,7 @@
-package com.example.studyspringbatch.batchprocessing;
+package com.example.studyspringbatch.batchprocessing
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.SpringApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication
 
 /*
 @SpringBootApplicationは以下を追加する便利なアノテーションである。
@@ -11,11 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 - @ComponentScan: com.exampleパッケージ内の他コンポーネント、設定、サービスを探し、コントローラを見つけさせるようSpringに指示する。
  */
 @SpringBootApplication
-public class BatchProcessingApplication {
-
-    public static void main(String[] args) throws Exception {
-        // SpringApplication.run() と web.xmlの関係（xmlを書かずに済む理由）
-        // SpringApplication.exitとSystem.exitは、ジョブ完了時にJVMが終了することを保証する
-        System.exit(SpringApplication.exit(SpringApplication.run(BatchProcessingApplication.class, args)));
-    }
+class BatchProcessingApplication
+fun main(args: Array<String>) {
+    // SpringApplication.run() と web.xmlの関係（xmlを書かずに済む理由）
+    // SpringApplication.exitとSystem.exitは、ジョブ完了時にJVMが終了することを保証する
+    System.exit(SpringApplication.exit(SpringApplication.run(BatchProcessingApplication::class.java, *args)))
 }
